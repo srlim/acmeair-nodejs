@@ -44,3 +44,17 @@ spec:
           imagePullPolicy: Always
           ports:
           - containerPort: 27017
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+    - host: megatron.k8s-cloud.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: acmeair
+              servicePort: 9080
