@@ -1,0 +1,43 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: acmeair
+  labels:
+    run: acmeair
+spec:
+  selector:
+    run: acmeair
+  ports:
+    - port: 9080
+      name: main
+      protocol: TCP
+      targetPort: 9080
+  type: NodePort
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: acmeair
+  labels:
+    run: acmeair
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: acmeair
+  template:
+    metadata:
+      labels:
+        run: acmeair
+    spec:
+      containers:
+        - name: acmeair
+          image: sppatel/acmeair-web
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 9080
+        - name: mongo
+          image: mongo
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 27017
