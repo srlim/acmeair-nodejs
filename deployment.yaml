@@ -51,7 +51,7 @@ metadata:
   name: ingress
 spec:
   rules:
-    - host: megatron.k8s-cloud.com
+    - host: powerpuff.k8s-cloud.com
       http:
         paths:
           - path: /
